@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TodoApp3.Models;
 
 namespace TodoApp3.Data;
 
@@ -8,4 +9,6 @@ public class AppDbContext : DbContext
     {
         
     }
+
+    public DbSet<TodoItem> TodoItems { get; set; }
 }
