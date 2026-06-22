@@ -1,0 +1,30 @@
+@page "/todo/create"
+@using TodoApp3.Data
+@using TodoApp3.Models
+@inject AppDbContext DbContext
+
+<h3>Create TODO</h3>
+
+<EditForm Model="_todoItem" OnValidSubmit="HandleSubmit">
+    <InputText @bind-Value="_todoItem.Title"/>
+    <button type="submit">Save</button>
+</EditForm>
+
+@if (showSuccessMsg)
+{
+    <p>Saved!</p>
+}
+
+@code {
+    private TodoItem _todoItem = new();
+    private bool showSuccessMsg = false;
+
+    private async Task HandleSubmit()
+    {
+        DbContext.TodoItems.Add(_todoItem);
+        await DbContext.SaveChangesAsync();
+
+        showSuccessMsg = true;
+        _todoItem = new TodoItem();
+    }
+}
